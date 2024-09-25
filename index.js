@@ -15,6 +15,7 @@ function reiniciaPartida() {
     document.getElementById("reinicia").disabled = true;
     numSecret = Math.round(Math.random() * 20) + 1;
     numeroFinal.innerHTML = "?";
+    document.body.style.backgroundColor = "black"; //torna al color original
 
 }
 //funcio 2 per jugar
@@ -40,6 +41,7 @@ function jugada() {
             document.getElementById("petit_gran").innerHTML = "El número és correcte";
             document.getElementById("reinicia").disabled = false;
             numeroFinal.innerHTML = numSecret; //que mostri per pantalla el número secret quan es guanyi
+            document.body.style.backgroundColor = "green"; //quan s'encerta el color del fons es torna verd
             if (numJugades > totalPunts) {
                 document.getElementById("puntsTotals").innerHTML = numJugades;
                 totalPunts = numJugades;
@@ -53,8 +55,8 @@ function jugada() {
         if (numJugades === 0) {
             document.getElementById("petit_gran").innerHTML = "Final de la partida";
             numeroFinal.innerHTML = numSecret; //que mostri per pantalla el número secret quan es perdi
-            document.getElementById("reinicia").disabled = false;
-
+            document.getElementById("reinicia").disabled = false; 
+            document.body.style.backgroundColor = "red"; //quan falla es torna de color vermell
         }
 
     } else {

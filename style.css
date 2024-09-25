@@ -1,14 +1,33 @@
 /* General */
+
+html {
+    font-family: "Tiny5", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
 body {
     background-color: black;
     color: white;
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     height: 100vh;
     justify-content: space-between;
+}
+
+#numeroFinal {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    color: black;
+    font-size: 48px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
 }
 
 header {
@@ -22,7 +41,7 @@ header {
 
 header h1 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 24px;
 }
 
 header button {
@@ -36,7 +55,6 @@ header button {
 
 header button:disabled {
     opacity: 0.5;
-    cursor: not-allowed;
 }
 
 main {
@@ -47,14 +65,9 @@ main h3 {
     margin: 20px 0;
 }
 
-#numeroFinal {
-    font-size: 3rem;
-    margin: 20px 0;
-}
-
 #petit_gran {
     margin: 20px 0;
-    font-size: 1.2rem;
+    font-size: 19px;
 }
 
 footer {
@@ -86,7 +99,7 @@ footer button {
 
 footer p {
     margin: 0;
-    font-size: 1rem;
+    font-size: 16px;
 }
 
 footer span {
