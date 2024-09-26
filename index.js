@@ -2,9 +2,10 @@
 const JUGADES_TOTALS = 20;
 //variables del joc
 let numJugades = JUGADES_TOTALS;
-let numSecret = Math.round(Math.random() * 20) + 1;
+let numSecret = Math.round(Math.random() * 20) + 1; //et dona numeros random entre el 1 y el 20
 let totalPunts = 0;
 let numeroFinal = document.getElementById("numeroFinal");
+
 //funcio per reinciar la partida
 function reiniciaPartida() {
     numJugades = JUGADES_TOTALS;
@@ -12,7 +13,7 @@ function reiniciaPartida() {
     document.getElementById("numEscollit").value = null;
     document.getElementById("petit_gran").innerHTML = "Comencem la partida...";
     document.getElementById("numContador").textContent = numJugades;
-    document.getElementById("reinicia").disabled = true;
+    document.getElementById("reinicia").disabled = true; //deshabilita el botó reinicia
     numSecret = Math.round(Math.random() * 20) + 1;
     numeroFinal.innerHTML = "?";
     document.body.style.backgroundColor = "black"; //torna al color original
@@ -26,18 +27,18 @@ function jugada() {
         return;
     }
 
-    if (numEscollit > 0 && numEscollit <= 20) {
+    if (numEscollit > 0 && numEscollit <= 20) { //aquesta condició es compleix quan el numero posat es major a 0 i menor o igual a 20
         //desincrementar una jugada
         numJugades--;
         document.getElementById("numContador").textContent = numJugades;
 
-        //comparar el número amb el número secret
-        if (numEscollit < numSecret) {
+        
+        if (numEscollit < numSecret) { //condició de si es compleix que el numero escollit es menor al número secret
             document.getElementById("petit_gran").innerHTML = "El número és massa petit"; //canvia el text de "Comencem la partida..." quan el número es petit
             document.getElementById("reinicia").disabled = true; //per que el botó reinicia estigui deshabilitat fins que acabi la partida o es perdi 
 
         }
-        else if (numEscollit == numSecret) {
+        else if (numEscollit == numSecret) { //condició de si es compleix que el numero escollit es igual al número secret
             document.getElementById("petit_gran").innerHTML = "El número és correcte";
             document.getElementById("reinicia").disabled = false;
             numeroFinal.innerHTML = numSecret; //que mostri per pantalla el número secret quan es guanyi
@@ -47,12 +48,12 @@ function jugada() {
                 totalPunts = numJugades;
             }
         }
-        else if (numJugades > numSecret) {
+        else if (numJugades > numSecret) { //condició de si es compleix que el numero de jugades es major al número secret
             document.getElementById("petit_gran").innerHTML = "El número és massa gran";
             document.getElementById("reinicia").disabled = true;
 
         }
-        if (numJugades === 0) {
+        if (numJugades === 0) { //condició de si es compleix que el numero de jugades es 0
             document.getElementById("petit_gran").innerHTML = "Final de la partida";
             numeroFinal.innerHTML = numSecret; //que mostri per pantalla el número secret quan es perdi
             document.getElementById("reinicia").disabled = false; 
