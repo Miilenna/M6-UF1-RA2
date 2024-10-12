@@ -96,7 +96,7 @@ function Jugades() {
 
 function GanarPerder() {
     const paraulaSecretaVal = paraulaSecreta.value.toUpperCase();
-    const liniasVal = linias.textContent.replace(/\s+/g, "");
+    const liniasVal = linias.textContent.replace(/\s+/g, ""); //???
     if (liniasVal === paraulaSecretaVal) {
         document.getElementById("linias").style.backgroundColor = "#dcfaa6";
         jocAcabat = true;
