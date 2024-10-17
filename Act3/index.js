@@ -8,6 +8,8 @@ let jugades = document.getElementById("jugades");
 let jugadesRestants = parseInt(jugades.textContent);
 let jocIniciat = false;
 let jocAcabat = false;
+let punts = document.getElementById("punts");
+let puntsSumats = parseInt(punts.textContent);
 
 function mostraPassw() {
     let contrasenya = paraulaSecreta;
@@ -52,17 +54,45 @@ function espaisParaulaSecreta() {
 }
 
 function mostrarContenidoBoton(valor) {
+    if(!jocIniciat) {
+        alert("Per començar el joc introdueix una paraula i prem el botó")
+        return;
+    }
+
     const lletraConte = valor.toUpperCase();
     const paraula = paraulaSecreta.value.toUpperCase();
     let resultatArray = resultat.split(" ");
 
     let lletraTrobada = false;
+    let puntsPerLletra = 0;
+    let puntsIndividuals=0;
+
     for (let i = 0; i < paraula.length; i++) {
         if (paraula[i] === lletraConte) {
             resultatArray[i] = lletraConte;
             lletraTrobada = true;
+            puntsPerLletra++;
         }
     }
+
+    if(lletraTrobada) {
+        if (puntsPerLletra == 1) {
+            puntsIndividuals = puntsPerLletra * lletraConte; //ARREGLAR
+            punts.textContent = puntsIndividuals;
+        }
+        if(lletraConte > 1) {
+            puntsSumats = puntsPerLletra * lletraConte + puntsIndividuals
+            punts.textContent = puntsSumats;
+        }
+    }
+
+    // if(lletraTrobada) {
+    //     if(puntsSumats + puntsPerLletra <= paraula.length) {
+    //         puntsSumats += puntsPerLletra;
+    //         punts.textContent = puntsSumats;
+    //     }
+    // }
+
     resultat = resultatArray.join(" ");
     linias.textContent = resultat;
 
@@ -84,6 +114,8 @@ function resetearJoc() {
     document.getElementById("linias").style.backgroundColor = "#ffffff";
     jocIniciat = false;
     jocAcabat = false;
+    puntsSumats = 0;
+    punts.textContent = puntsSumats;
 }
 
 function Jugades() {
@@ -96,7 +128,7 @@ function Jugades() {
 
 function GanarPerder() {
     const paraulaSecretaVal = paraulaSecreta.value.toUpperCase();
-    const liniasVal = linias.textContent.replace(/\s+/g, ""); //???
+    const liniasVal = linias.textContent.replaceAll(" ",""); 
     if (liniasVal === paraulaSecretaVal) {
         document.getElementById("linias").style.backgroundColor = "#dcfaa6";
         jocAcabat = true;
