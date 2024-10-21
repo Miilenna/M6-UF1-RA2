@@ -65,7 +65,6 @@ function mostrarContenidoBoton(valor) {
 
     let lletraTrobada = false;
     let puntsPerLletra = 0;
-    let puntsIndividuals=0;
 
     for (let i = 0; i < paraula.length; i++) {
         if (paraula[i] === lletraConte) {
@@ -77,21 +76,12 @@ function mostrarContenidoBoton(valor) {
 
     if(lletraTrobada) {
         if (puntsPerLletra == 1) {
-            puntsIndividuals = puntsPerLletra * lletraConte; //ARREGLAR
-            punts.textContent = puntsIndividuals;
+            puntsSumats += 1;
         }
-        if(lletraConte > 1) {
-            puntsSumats = puntsPerLletra * lletraConte + puntsIndividuals
-            punts.textContent = puntsSumats;
+        else if(puntsPerLletra > 1) {
+            puntsSumats += puntsPerLletra * paraula.length;
         }
     }
-
-    // if(lletraTrobada) {
-    //     if(puntsSumats + puntsPerLletra <= paraula.length) {
-    //         puntsSumats += puntsPerLletra;
-    //         punts.textContent = puntsSumats;
-    //     }
-    // }
 
     resultat = resultatArray.join(" ");
     linias.textContent = resultat;
@@ -99,7 +89,7 @@ function mostrarContenidoBoton(valor) {
     if (!lletraTrobada) {
         Jugades();
     }
-
+    punts.textContent = puntsSumats;
     GanarPerder();
 }
 
