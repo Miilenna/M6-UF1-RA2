@@ -5,42 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body onload="inicialitzarBotons()">
     <input id="paraulaSecreta" type="password" placeholder="Introdueix una paraula">
     <input id="mostrarContra" type="checkbox" onclick="mostraPassw()"> Mostra contrasenya
     <button id="començarPartida" onclick="comencarPartida()">Començar partida</button>
     <br>
     <br>
-    <p id="linias" onclick="espaisParaulaSecreta()"></p>
+    <p id="linias" onclick="espaisParaulaSecreta()">Començar partida</p>
     <img onclick="mostrarContenidoBoton()" id="penjat_0" src="/img/penjat_0.jpg">
     <br>
-    <button onclick="mostrarContenidoBoton('A');">A</button>
-    <button onclick="mostrarContenidoBoton('B');">B</button>
-    <button onclick="mostrarContenidoBoton('C');">C</button>
-    <button onclick="mostrarContenidoBoton('D');">D</button>
-    <button onclick="mostrarContenidoBoton('E');">E</button>
-    <button onclick="mostrarContenidoBoton('F');">F</button>
-    <button onclick="mostrarContenidoBoton('G');">G</button>
-    <button onclick="mostrarContenidoBoton('H');">H</button>
-    <button onclick="mostrarContenidoBoton('I');">I</button>
-    <button onclick="mostrarContenidoBoton('J');">J</button>
-    <button onclick="mostrarContenidoBoton('K');">K</button>
-    <button onclick="mostrarContenidoBoton('L');">L</button>
-    <button onclick="mostrarContenidoBoton('M');">M</button>
-    <button onclick="mostrarContenidoBoton('N');">N</button>
-    <button onclick="mostrarContenidoBoton('O');">O</button>
-    <button onclick="mostrarContenidoBoton('P');">P</button>
-    <button onclick="mostrarContenidoBoton('Q');">Q</button>
-    <button onclick="mostrarContenidoBoton('R');">R</button>
-    <button onclick="mostrarContenidoBoton('S');">S</button>
-    <button onclick="mostrarContenidoBoton('T');">T</button>
-    <button onclick="mostrarContenidoBoton('U');">U</button>
-    <button onclick="mostrarContenidoBoton('V');">V</button>
-    <button onclick="mostrarContenidoBoton('W');">W</button>
-    <button onclick="mostrarContenidoBoton('X');">X</button>
-    <button onclick="mostrarContenidoBoton('Y');">Y</button>
-    <button onclick="mostrarContenidoBoton('Z');">Z</button>
-    <p>Intents de partida: <span id="jugades">10</span></p>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('A', this);">A</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('B', this);">B</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('C', this);">C</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('D', this);">D</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('E', this);">E</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('F', this);">F</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('G', this);">G</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('H', this);">H</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('I', this);">I</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('J', this);">J</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('K', this);">K</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('L', this);">L</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('M', this);">M</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('N', this);">N</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('O', this);">O</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('P', this);">P</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('Q', this);">Q</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('R', this);">R</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('S', this);">S</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('T', this);">T</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('U', this);">U</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('V', this);">V</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('W', this);">W</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('X', this);">X</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('Y', this);">Y</button>
+    <button class="buttonLletres" onclick="mostrarContenidoBoton('Z', this);">Z</button>
     <p>Punts partides actuals: <span id="punts">0</span></p>
     <p>Total partides: <span id="totalPartides">0</span></p>
     <p>Partides guanyades: <span id="partidesGuanyades">0</span> <span id="percentatgeGuanyades">(0%)</span></span></p>

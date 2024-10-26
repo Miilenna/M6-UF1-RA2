@@ -4,8 +4,6 @@ let botoContraseña = document.getElementById("mostrarContra");
 let comencar = document.getElementById("començarPartida");
 let linias = document.getElementById("linias");
 let resultat = "";
-let jugades = document.getElementById("jugades");
-let jugadesRestants = parseInt(jugades.textContent);
 let jocIniciat = false;
 let jocAcabat = false;
 let punts = document.getElementById("punts");
@@ -13,10 +11,23 @@ let puntsSumats = parseInt(punts.textContent);
 let encertsConsecutius = 0;
 let totalPartides = parseInt(document.getElementById("totalPartides").textContent);
 let partidesGuanyades = parseInt(document.getElementById("partidesGuanyades").textContent);
-let partidaMesPunts = document.getElementById("partidaMesPunts"); // Cambiado a referencia del elemento
-let maxPunts = 0; // per guardar la puntuació més alta de la partida actual
-let maxPuntsTotal = 0; // per guardar la puntuació més alta de totes les partides
+let partidaMesPunts = document.getElementById("partidaMesPunts");
+let maxPunts = 0;
+let maxPuntsTotal = 0;
 let penjat = document.getElementById("penjat_0");
+let jugadesRestants = 10; // Nuevas jugadas restantes
+const botons = document.querySelectorAll(".buttonLletres");
+
+
+function inicialitzarBotons(){
+    botons.forEach((boton) =>{
+        boton.disabled = true;
+        boton.style.border = "1px solid red";
+        boton.style.borderRadius = "4px";
+        boton.style.backgroundColor = "#cbfc71";
+        boton.style.color = "red";
+    });
+}
 
 function mostraPassw() {
     let contrasenya = paraulaSecreta;
@@ -44,17 +55,23 @@ function comencarPartida() {
             comencar.disabled = true;
             paraulaSecreta.disabled = true;
             espaisParaulaSecreta();
-            jugadesRestants = 10; // Reinicia el nombre d'intents
-            jugades.textContent = jugadesRestants;
-            puntsSumats = 0; // Reinicia els punts
+            puntsSumats = 0;
             punts.textContent = puntsSumats;
             encertsConsecutius = 0;
+            jugadesRestants = 10; // Reiniciar jugadas restantes al comenzar
+            penjat.src = `/img/penjat_0.jpg`; // Restablecer la imagen
+            botons.forEach((boton) =>{
+                boton.disabled = false;
+                boton.style.border = "1px solid black";
+                boton.style.borderRadius = "4px";
+                boton.style.backgroundColor = "#cbfc71";
+                boton.style.color = "black";
+            });
         }
     } else if (jocAcabat) {
         resetearJoc();
     }
 }
-
 function espaisParaulaSecreta() {
     if (paraulaSecreta.value.length > 3) {
         resultat = "_ ".repeat(paraulaSecreta.value.length);
@@ -62,19 +79,13 @@ function espaisParaulaSecreta() {
     }
 }
 
-function mostrarContenidoBoton(valor) {
-    if (!jocIniciat) {
-        alert("Per començar el joc introdueix una paraula i prem el botó");
-        return;
-    }
-
+function mostrarContenidoBoton(valor, boton) {
     const lletraConte = valor.toUpperCase();
     const paraula = paraulaSecreta.value.toUpperCase();
     let resultatArray = resultat.split(" ");
     let lletraTrobada = false;
-    let comptadorLletra = 0; // comptador per veure quantes vegades apareix la lletra en la paraula
+    let comptadorLletra = 0;
 
-    // Itera per cada lletra de la paraula per trobar coincidències
     for (let i = 0; i < paraula.length; i++) {
         if (paraula[i] === lletraConte && resultatArray[i] === "_") {
             resultatArray[i] = lletraConte;
@@ -83,19 +94,27 @@ function mostrarContenidoBoton(valor) {
         }
     }
 
-    if (lletraTrobada) {
-        encertsConsecutius++; // incrementa encerts consecutius
-        let puntsIndividuals = encertsConsecutius * comptadorLletra; // multiplica pels caràcters que contenen la lletra
-        puntsSumats += puntsIndividuals; // afegeix els punts
-    } else {
-        encertsConsecutius = 0; // reinicia encerts consecutius si no encertes
-        puntsSumats = Math.max(0, puntsSumats - 1); // resta 1 punt sense permetre negatius
-        Jugades(); // disminueix intents
-    }
+    boton.disabled = true;
+    boton.style.border = "1px solid red";
+    boton.style.borderRadius = "4px";
+    boton.style.backgroundColor = "#cbfc71";
+    boton.style.color = "red";
 
+    if (lletraTrobada) {
+        encertsConsecutius++;
+        let puntsIndividuals = encertsConsecutius * comptadorLletra;
+        puntsSumats += puntsIndividuals;
+    
+    } else {
+        encertsConsecutius = 0;
+        puntsSumats = Math.max(0, puntsSumats - 1);
+        jugadesRestants--; // Reducir jugadas restantes si la letra no está en la palabra
+        penjat.src = `/img/penjat_${10 - jugadesRestants}.jpg`; // Actualizar imagen
+    }
     resultat = resultatArray.join(" ");
     linias.textContent = resultat;
     punts.textContent = puntsSumats;
+
     GanarPerder();
 }
 
@@ -105,25 +124,21 @@ function resetearJoc() {
     paraulaSecreta.disabled = false;
     linias.textContent = " ";
     paraulaSecreta.value = "";
-    jugadesRestants = 10;
-    jugades.textContent = jugadesRestants;
     document.getElementById("linias").style.backgroundColor = "#ffffff";
     jocIniciat = false;
     jocAcabat = false;
     puntsSumats = 0;
     punts.textContent = puntsSumats;
     encertsConsecutius = 0;
+    jugadesRestants = 10;
     penjat.src = `/img/penjat_0.jpg`;
-}
-
-function Jugades() {
-    if (jugadesRestants <= 0) {
-        return;
-    }
-    jugadesRestants--;
-    jugades.textContent = jugadesRestants;
-
-    penjat.src = `/img/penjat_${10 - jugadesRestants}.jpg`;
+    botons.forEach((boton) =>{
+        boton.disabled = true;
+        boton.style.border = "1px solid red";
+        boton.style.borderRadius = "4px";
+        boton.style.backgroundColor = "#cbfc71";
+        boton.style.color = "red";
+    });
 }
 
 function GanarPerder() {
@@ -133,37 +148,44 @@ function GanarPerder() {
     if (liniasVal === paraulaSecretaVal) {
         document.getElementById("linias").style.backgroundColor = "#dcfaa6";
         jocAcabat = true;
-        totalPartides++; // Incrementa totalPartides quan es guanya
-        partidesGuanyades++; // Incrementa partides guanyades
+        totalPartides++;
+        partidesGuanyades++;
         
         if (puntsSumats > maxPunts) {
-            maxPunts = puntsSumats; // Actualitza la puntuació màxima
-            partidaMesPunts.textContent = maxPunts; // Actualitza l'element de la puntuació més alta
+            maxPunts = puntsSumats;
+            partidaMesPunts.textContent = maxPunts;
         }
 
-        // Actualitza la puntuació més alta total si cal
         if (puntsSumats > maxPuntsTotal) {
-            maxPuntsTotal = puntsSumats; // Actualitza la puntuació més alta total
-            document.getElementById("partidaMesPunts").textContent = `Màxim: ${maxPuntsTotal}`; // Actualitza la visualització de la puntuació més alta total
+            maxPuntsTotal = puntsSumats;
+            document.getElementById("partidaMesPunts").textContent = maxPuntsTotal;
         }
-
+        botons.forEach((boton) =>{
+            boton.disabled = true;
+        });
+        comencar.disabled = false;
+        botoContraseña.disabled = false;
     } else if (jugadesRestants === 0) {
         document.getElementById("linias").style.backgroundColor = "#ff0000";
         linias.textContent = paraulaSecretaVal;
         jocAcabat = true;
         totalPartides++;
+        botons.forEach((boton) =>{
+            boton.disabled = true;
+        });
+        comencar.disabled = false;
+        botoContraseña.disabled = false;
     }
+
     let percentatge = 0;
     if (totalPartides > 0) {
         percentatge = ((partidesGuanyades / totalPartides) * 100);
     }
     document.getElementById("percentatgeGuanyades").textContent = `(${percentatge.toFixed(2)}%)`;
 
-    // Actualitza els elements de totalPartides i partidesGuanyades al HTML
     document.getElementById("totalPartides").textContent = totalPartides;
     document.getElementById("partidesGuanyades").textContent = partidesGuanyades;
 
     botoContraseña.disabled = false;
-    comencar.disabled = false;
     paraulaSecreta.disabled = false;
 }
