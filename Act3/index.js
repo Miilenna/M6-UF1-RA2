@@ -1,4 +1,4 @@
-// Variables globals
+// Variables y constantes
 let paraulaSecreta = document.getElementById("paraulaSecreta");
 let botoContraseña = document.getElementById("mostrarContra");
 let comencar = document.getElementById("començarPartida");
@@ -14,14 +14,14 @@ let partidesGuanyades = parseInt(document.getElementById("partidesGuanyades").te
 let partidaMesPunts = document.getElementById("partidaMesPunts");
 let maxPunts = 0;
 let maxPuntsTotal = 0;
-let penjat = document.getElementById("penjat_0");
-let jugadesRestants = 10; // Nuevas jugadas restantes
+let penjat = document.getElementById("penjat_0"); // Imagen del estado del juego
+let jugadesRestants = 10;
 const botons = document.querySelectorAll(".buttonLletres");
 
-
+//Inicializa los botones de las letras
 function inicialitzarBotons(){
     botons.forEach((boton) =>{
-        boton.disabled = true;
+        boton.disabled = true; //deshabilitar los botones
         boton.style.border = "1px solid red";
         boton.style.borderRadius = "4px";
         boton.style.backgroundColor = "#cbfc71";
@@ -29,6 +29,7 @@ function inicialitzarBotons(){
     });
 }
 
+//Función para mostrar/ocultar la contraseña
 function mostraPassw() {
     let contrasenya = paraulaSecreta;
     if (contrasenya.type === "password") {
@@ -38,6 +39,7 @@ function mostraPassw() {
     }
 }
 
+//Función que se ejecuta al darle al botón de començar partida
 function comencarPartida() {
     if (!jocIniciat) {
         if (paraulaSecreta.value === "") {
@@ -58,7 +60,7 @@ function comencarPartida() {
             puntsSumats = 0;
             punts.textContent = puntsSumats;
             encertsConsecutius = 0;
-            jugadesRestants = 10; // Reiniciar jugadas restantes al comenzar
+            jugadesRestants = 10; 
             penjat.src = `/img/penjat_0.jpg`; // Restablecer la imagen
             botons.forEach((boton) =>{
                 boton.disabled = false;
@@ -72,13 +74,16 @@ function comencarPartida() {
         resetearJoc();
     }
 }
+
+//Función que inicializa los espacios de la palabra secreta
 function espaisParaulaSecreta() {
     if (paraulaSecreta.value.length > 3) {
-        resultat = "_ ".repeat(paraulaSecreta.value.length);
-        linias.textContent = resultat;
+        resultat = "_ ".repeat(paraulaSecreta.value.length); // Crea un string con los espacios correspondientes
+        linias.textContent = resultat; // Muestra los espacios en el elemento
     }
 }
 
+//Muestra el contenido del botón que se ha apretado
 function mostrarContenidoBoton(valor, boton) {
     const lletraConte = valor.toUpperCase();
     const paraula = paraulaSecreta.value.toUpperCase();
@@ -86,23 +91,26 @@ function mostrarContenidoBoton(valor, boton) {
     let lletraTrobada = false;
     let comptadorLletra = 0;
 
+    //Verifica si la letra está en la palabra
     for (let i = 0; i < paraula.length; i++) {
         if (paraula[i] === lletraConte && resultatArray[i] === "_") {
-            resultatArray[i] = lletraConte;
+            resultatArray[i] = lletraConte; // Reemplaza el espacio por la letra encontrada
             lletraTrobada = true;
-            comptadorLletra++;
+            comptadorLletra++; // Incrementa el contador de letras encontradas
         }
     }
 
+    // Actualiza el estado del botón presionado
     boton.disabled = true;
     boton.style.border = "1px solid red";
     boton.style.borderRadius = "4px";
     boton.style.backgroundColor = "#cbfc71";
     boton.style.color = "red";
 
+    // Actualiza los puntos según si se encontró la letra
     if (lletraTrobada) {
-        encertsConsecutius++;
-        let puntsIndividuals = encertsConsecutius * comptadorLletra;
+        encertsConsecutius++; // Incrementa los aciertos consecutivos
+        let puntsIndividuals = encertsConsecutius * comptadorLletra; // Calcula los puntos por aciertos
         puntsSumats += puntsIndividuals;
     
     } else {
@@ -111,13 +119,15 @@ function mostrarContenidoBoton(valor, boton) {
         jugadesRestants--; // Reducir jugadas restantes si la letra no está en la palabra
         penjat.src = `/img/penjat_${10 - jugadesRestants}.jpg`; // Actualizar imagen
     }
-    resultat = resultatArray.join(" ");
-    linias.textContent = resultat;
-    punts.textContent = puntsSumats;
 
-    GanarPerder();
+    resultat = resultatArray.join(" "); // Une el array en un string
+    linias.textContent = resultat; // Muestra el resultado en el elemento
+    punts.textContent = puntsSumats; // Actualiza los puntos mostrados
+
+    GanarPerder(); // Verifica si el juego ha ganado o perdido
 }
 
+// Reinicia el juego y vuelve a dejarlo como estaba antes de empezar el juego menos los datos que son acumulativos
 function resetearJoc() {
     botoContraseña.disabled = false;
     comencar.disabled = false;
@@ -143,33 +153,38 @@ function resetearJoc() {
 
 }
 
+// Verifica si el jugador ha ganado o perdido
 function GanarPerder() {
     const paraulaSecretaVal = paraulaSecreta.value.toUpperCase();
     const liniasVal = linias.textContent.replaceAll(" ", "");
     
+    // Verifica si se ha ganado
     if (liniasVal === paraulaSecretaVal) {
         document.getElementById("linias").style.backgroundColor = "#dcfaa6";
         jocAcabat = true;
         totalPartides++;
         partidesGuanyades++;
         
+        // Actualiza la partida con más puntos si hace falta
         if (puntsSumats > maxPunts) {
             maxPunts = puntsSumats;
             partidaMesPunts.textContent = maxPunts;
         }
 
+        // Actualiza el máximo de puntos total si hace falta
         if (puntsSumats > maxPuntsTotal) {
-            maxPuntsTotal = puntsSumats;
-            let data = new Date().toLocaleDateString("es-ES");
-            let hora = new Date().toLocaleTimeString("es-ES");
+            maxPuntsTotal = puntsSumats;    
+            let data = new Date().toLocaleDateString("es-ES"); // Obtiene la fecha actual
+            let hora = new Date().toLocaleTimeString("es-ES"); // Obtiene la hora actual
             document.getElementById("partidaMesPunts").textContent = data + " " + hora + " - " + maxPuntsTotal + " punts";
         }
+        // Desactiva todos los botones
         botons.forEach((boton) =>{
             boton.disabled = true;
         });
         comencar.disabled = false;
         botoContraseña.disabled = false;
-    } else if (jugadesRestants === 0) {
+    } else if (jugadesRestants === 0) { // Verifica si se han acabado las jugadas
         document.getElementById("linias").style.backgroundColor = "#ff0000";
         linias.textContent = paraulaSecretaVal;
         jocAcabat = true;
@@ -183,13 +198,15 @@ function GanarPerder() {
 
     let percentatge = 0;
     if (totalPartides > 0) {
-        percentatge = ((partidesGuanyades / totalPartides) * 100);
+        percentatge = ((partidesGuanyades / totalPartides) * 100); // Calcula el porcentaje de victorias
     }
     document.getElementById("percentatgeGuanyades").textContent = `(${percentatge.toFixed(2)}%)`;
 
+    // Actualiza el total de partidas y las ganadas en la interfaz
     document.getElementById("totalPartides").textContent = totalPartides;
     document.getElementById("partidesGuanyades").textContent = partidesGuanyades;
 
+    // Activa de nuevo el botón de mostrar contraseña y el campo de la palabra secreta
     botoContraseña.disabled = false;
     paraulaSecreta.disabled = false;
 }
