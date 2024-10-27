@@ -122,7 +122,7 @@ function resetearJoc() {
     botoContraseña.disabled = false;
     comencar.disabled = false;
     paraulaSecreta.disabled = false;
-    linias.textContent = " ";
+    linias.textContent = "Començar partida";
     paraulaSecreta.value = "";
     document.getElementById("linias").style.backgroundColor = "#ffffff";
     jocIniciat = false;
@@ -139,6 +139,8 @@ function resetearJoc() {
         boton.style.backgroundColor = "#cbfc71";
         boton.style.color = "red";
     });
+    document.getElementById("linias").style.backgroundColor = "#c2d4f9";
+
 }
 
 function GanarPerder() {
@@ -158,7 +160,9 @@ function GanarPerder() {
 
         if (puntsSumats > maxPuntsTotal) {
             maxPuntsTotal = puntsSumats;
-            document.getElementById("partidaMesPunts").textContent = maxPuntsTotal;
+            let data = new Date().toLocaleDateString("es-ES");
+            let hora = new Date().toLocaleTimeString("es-ES");
+            document.getElementById("partidaMesPunts").textContent = data + " " + hora + " - " + maxPuntsTotal + " punts";
         }
         botons.forEach((boton) =>{
             boton.disabled = true;
