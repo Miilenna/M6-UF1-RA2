@@ -61,7 +61,7 @@ function comencarPartida() {
             punts.textContent = puntsSumats;
             encertsConsecutius = 0;
             jugadesRestants = 10; 
-            penjat.src = `/img/penjat_0.jpg`; // Restablecer la imagen
+            penjat.src = `img/penjat_0.jpg`; // Restablecer la imagen
             botons.forEach((boton) =>{
                 boton.disabled = false;
                 boton.style.border = "1px solid black";
@@ -117,7 +117,7 @@ function mostrarContenidoBoton(valor, boton) {
         encertsConsecutius = 0;
         puntsSumats = Math.max(0, puntsSumats - 1);
         jugadesRestants--; // Reducir jugadas restantes si la letra no está en la palabra
-        penjat.src = `/img/penjat_${10 - jugadesRestants}.jpg`; // Actualizar imagen
+        penjat.src = `img/penjat_${10 - jugadesRestants}.jpg`; // Actualizar imagen
     }
 
     resultat = resultatArray.join(" "); // Une el array en un string
@@ -141,7 +141,7 @@ function resetearJoc() {
     punts.textContent = puntsSumats;
     encertsConsecutius = 0;
     jugadesRestants = 10;
-    penjat.src = `/img/penjat_0.jpg`;
+    penjat.src = `img/penjat_0.jpg`;
     botons.forEach((boton) =>{
         boton.disabled = true;
         boton.style.border = "1px solid red";
